@@ -13,8 +13,6 @@ export type ProductResponse = {
   data?: Product[] | Product;
 };
 
-
-
 export type ParamsWithId = {
   id: string;
 };
