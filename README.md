@@ -39,6 +39,7 @@ Development utilities:
   * HTTP assertions made easy via superagent.
 
 ## Setup
+Purpose: Installs the project's dependencies
 
 ### npm
 ```sh
@@ -62,6 +63,7 @@ Deno does not require separate package installations.
 ```
 
 ## Lint
+Purpose: Analyzes the code for potential errors and enforces coding standards.
 
 ### npm
 ```sh
@@ -85,6 +87,7 @@ deno lint
 ```
 
 ## Test
+Purpose: Runs tests to ensure code behaves as expected.
 
 ### npm
 ```sh
@@ -108,6 +111,7 @@ deno test
 ```
 
 ## Development
+Purpose: Starts the development server or runs the project in a watch mode for development.
 
 ### npm
 ```sh
