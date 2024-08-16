@@ -40,95 +40,92 @@ Development utilities:
 
 ## Setup
 
-## npm
+### npm
 ```sh
 npm install
 ```
-
-
-
-
-
-## pnpm
+### pnpm
 ```sh
 pnpm install
 ```
-## yarn
+### yarn
 ```sh
 yarn
 ```
-## bun
+### bun
 ```sh
 bun install
 ```
-## deno
-### Deno does not require separate package installations.
+### deno
+```
+Deno does not require separate package installations.
+```
 
 ## Lint
 
-## npm
+### npm
 ```sh
 npm run lint
 ```
-## pnpm
+### pnpm
 ```sh
 pnpm lint
 ```
-## yarn
+### yarn
 ```sh
 yarn lint
 ```
-## bun
+### bun
 ```sh
 bun run lint
 ```
-## deno
+### deno
 ```sh
 deno lint
 ```
 
 ## Test
 
-## npm
+### npm
 ```sh
 npm run test
 ```
-## pnpm
+### pnpm
 ```sh
 pnpm test
 ```
-## yarn
+### yarn
 ```sh
 yarn test
 ```
-## bun
+### bun
 ```sh
 bun test
 ```
-## deno
+### deno
 ```sh
 deno test
 ```
 
 ## Development
 
-## npm
+### npm
 ```sh
 npm run dev
 ```
-## pnpm
+### pnpm
 ```sh
 pnpm dev
 ```
-## yarn
+### yarn
 ```sh
 yarn dev
 ```
-## bun
+### bun
 ```sh
 bun run dev
 ```
-## deno
+### deno
 ```sh
 deno run --watch main.ts
 ```
