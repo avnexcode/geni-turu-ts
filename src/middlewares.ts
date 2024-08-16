@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
-
 import ErrorResponse from './interfaces/ErrorResponse';
-import { TokenRequest } from './interfaces/TokenRequest';
+import TokenRequest from './interfaces/TokenRequest';
+import crypto from 'crypto';
 
 export const notFound = (req: Request, res: Response, next: NextFunction) => {
   res.status(404);
@@ -20,19 +20,33 @@ export const errorHandler = (err: Error, req: Request, res: Response<ErrorRespon
   next();
 };
 
-export const tokenHandler = (req: TokenRequest, res: Response, next: NextFunction): void => {
-  const token = req.query.token;
+function safeCompare(a: string, b: string) {
+  return crypto.timingSafeEqual(Buffer.from(a), Buffer.from(b));
+}
 
-  if (typeof token !== 'string' || !token) {
+export const tokenHandler = (req: TokenRequest, res: Response, next: NextFunction): void => {
+  const authHeader = req.header('Authorization');
+  const token = authHeader?.startsWith('Bearer ') ? authHeader.slice(7) : null;
+
+  if (!process.env.SECRET_TOKEN) {
+    res.status(500).json({ error: 'Internal server error' });
+    return;
+  }
+
+  if (!token) {
     res.status(401).json({ error: 'Access denied. No token provided.' });
     return;
   }
 
-  if (token.trim() !== process.env.SECRET_TOKEN) {
-    res.status(400).json({ error: 'Invalid token.' });
-    return;
-  }
+  try {
+    if (!safeCompare(token, process.env.SECRET_TOKEN)) {
+      res.status(400).json({ error: 'Invalid token.' });
+      return;
+    }
 
-  req.user = { token: token.trim() };
-  next();
+    req.user = { token };
+    next();
+  } catch (error) {
+    res.status(400).json({ error: 'Invalid token.' });
+  }
 };
