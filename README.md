@@ -58,9 +58,9 @@ yarn
 bun install
 ```
 ### deno
-```
+``
 Deno does not require separate package installations.
-```
+``
 
 ## Lint
 Purpose: Analyzes the code for potential errors and enforces coding standards.
