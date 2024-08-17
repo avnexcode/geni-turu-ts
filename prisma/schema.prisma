@@ -13,11 +13,23 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model products {
-  id String @id @default(cuid())
-  name String
-  price Int
-  category String
+model Category {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  description String?
+  products    Product[] @relation("CategoryProducts")
+
+  @@map("categories")
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  price       Int
   description String
-  image String
+  image       String
+  categoryid  String
+  category    Category @relation(fields: [categoryid], references: [id], name: "CategoryProducts")
+
+  @@map("products")
 }
