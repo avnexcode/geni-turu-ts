@@ -1,18 +1,25 @@
 import express, { RequestHandler } from 'express';
 import { getProductController, getProductsController, postProductController } from '../controllers/product.controller';
-import { QueryParams, type ParamsWithId, type ProductResponse } from '../types';
+import { GetProductResponse, GetProductsControllerQueryParams, GetProductsResponse, type ParamsWithId } from '../types';
 
 const router = express.Router();
 
-router.get<{}, ProductResponse, {}, QueryParams>(
+router.get<{}, GetProductsResponse, {}, GetProductsControllerQueryParams>(
   '/',
-  getProductsController as RequestHandler<{}, ProductResponse, {}, QueryParams>,
+  getProductsController as RequestHandler<{}, GetProductsResponse, {}, GetProductsControllerQueryParams>,
 );
-router.get<ParamsWithId, ProductResponse>('/:id', getProductController);
-router.post<{}, ProductResponse>('/', postProductController);
-router.post<{}, ProductResponse>('/many', getProductController);
-router.put<ParamsWithId, ProductResponse>('/:id', getProductController);
-router.patch<ParamsWithId, ProductResponse>('/:id', getProductController);
-router.delete<ParamsWithId, ProductResponse>('/:id', getProductController);
+
+router.get<ParamsWithId, GetProductResponse>('/:id', getProductController);
+
+router.post<{}, GetProductResponse>('/', postProductController);
+
+router.post<{}, GetProductResponse>('/many', getProductController);
+
+router.put<ParamsWithId, GetProductResponse>('/:id', getProductController);
+
+router.patch<ParamsWithId, GetProductResponse>('/:id', getProductController);
+
+router.delete<ParamsWithId, GetProductResponse>('/:id', getProductController);
+
 
 export default router;

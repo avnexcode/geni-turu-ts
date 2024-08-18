@@ -1,5 +1,10 @@
+import { CategoryResult } from '../index';
 
-export type FindCategoriesRepository = () => {};
+export type FindCategoriesRepository = (
+  filters: Record<string, string>,
+  page: number,
+  limit: number
+) => Promise<CategoryResult>;
 
 export type FindCategoryRepository = () => {};
 

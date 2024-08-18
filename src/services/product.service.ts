@@ -6,14 +6,14 @@ import {
   updateProduct,
 } from '../repositories/product.repository';
 import {
-  DeleteProductService,
-  EditProductService,
+  type DeleteProductService,
+  type EditProductService,
   type CreateProductService,
   type GetAllProductsService,
   type GetProductService,
 } from '../types';
 
-export const getAllProducts: GetAllProductsService = async (filters = {}, page = 1, limit = 10) => {
+export const getAllProducts: GetAllProductsService = async (filters, page, limit) => {
   const products = await findProducts(filters, page, limit);
   return products;
 };

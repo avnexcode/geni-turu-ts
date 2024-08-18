@@ -28,8 +28,8 @@ model Product {
   price       Int
   description String
   image       String
-  categoryid  String
-  category    Category @relation(fields: [categoryid], references: [id], name: "CategoryProducts")
+  categoryid  String?
+  category    Category? @relation(fields: [categoryid], references: [id], name: "CategoryProducts")
 
   @@map("products")
 }

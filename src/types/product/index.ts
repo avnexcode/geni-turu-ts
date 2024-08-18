@@ -1,16 +1,8 @@
-export type Product = {
-  id?: string;
-  name: string;
-  price: number;
-  categoryid: string;
-  description: string;
-  image: string;
-  category: {
-    id?: string;
-    name: string;
-    description?: string;
-  };
-};
+import { Prisma } from '@prisma/client';
+
+export type Product = Prisma.ProductGetPayload<{
+  include: { category: true };
+}>;
 
 export type ProductResult = {
   products: Product[];
@@ -19,17 +11,19 @@ export type ProductResult = {
   limit: number;
 };
 
-export type ProductResponse = {
+export type GetProductResponse = {
   status: string;
   message: string;
-  data?: ProductResult | Product;
+  data?: Product;
 };
 
-export type ParamsWithId = {
-  id: string;
+export type GetProductsResponse = {
+  status: string;
+  message: string;
+  data?: ProductResult;
 };
 
-export type QueryParams = {
+export type GetProductsControllerQueryParams = {
   page?: string;
   limit?: string;
   [key: string]: string | undefined;

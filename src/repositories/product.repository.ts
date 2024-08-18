@@ -4,8 +4,6 @@ import {
   FindProductRepository,
   FindProductsRepository,
   InsertProductRepository,
-  Product,
-  ProductResult,
   UpdateProductRepository,
 } from '../types';
 
@@ -32,28 +30,7 @@ export const findProducts: FindProductsRepository = async (filters, page, limit)
 
   const total = await prisma.product.count({ where: prismaFilter });
 
-  const transformedProducts: Product[] = products.map(product => ({
-    id: product.id,
-    name: product.name,
-    price: product.price,
-    description: product.description,
-    image: product.image,
-    categoryid: product.categoryid,
-    category: {
-      id: product.category.id,
-      name: product.category.name,
-      description: product.category.description ?? undefined,
-    },
-  }));
-
-  const result: ProductResult = {
-    products: transformedProducts,
-    total,
-    page,
-    limit,
-  };
-
-  return result;
+  return { products, total, page, limit };
 };
 
 export const findProduct: FindProductRepository = async id => {
@@ -62,21 +39,7 @@ export const findProduct: FindProductRepository = async id => {
     include: { category: true },
   });
 
-  if (!product) return null;
-
-  return {
-    id: product.id,
-    name: product.name,
-    price: product.price,
-    categoryid: product.categoryid,
-    description: product.description,
-    image: product.image,
-    category: {
-      id: product.category.id,
-      name: product.category.name,
-      description: product.category.description ?? undefined,
-    },
-  };
+  return product;
 };
 
 export const insertProduct: InsertProductRepository = async newProductData => {
@@ -91,19 +54,7 @@ export const insertProduct: InsertProductRepository = async newProductData => {
     include: { category: true },
   });
 
-  return {
-    id: product.id,
-    name: product.name,
-    price: product.price,
-    categoryid: product.categoryid,
-    description: product.description,
-    image: product.image,
-    category: {
-      id: product.category.id,
-      name: product.category.name,
-      description: product.category.description ?? undefined,
-    },
-  };
+  return product;
 };
 
 export const updateProduct: UpdateProductRepository = async (id, productData) => {
@@ -119,19 +70,7 @@ export const updateProduct: UpdateProductRepository = async (id, productData) =>
     include: { category: true },
   });
 
-  return {
-    id: product.id,
-    name: product.name,
-    price: product.price,
-    categoryid: product.categoryid,
-    description: product.description,
-    image: product.image,
-    category: {
-      id: product.category.id,
-      name: product.category.name,
-      description: product.category.description ?? undefined,
-    },
-  };
+  return product;
 };
 
 export const destroyProduct: DestroyProductRepository = async id => {
@@ -140,17 +79,5 @@ export const destroyProduct: DestroyProductRepository = async id => {
     include: { category: true },
   });
 
-  return {
-    id: product.id,
-    name: product.name,
-    price: product.price,
-    categoryid: product.categoryid,
-    description: product.description,
-    image: product.image,
-    category: {
-      id: product.category.id,
-      name: product.category.name,
-      description: product.category.description ?? undefined,
-    },
-  };
+  return product;
 };

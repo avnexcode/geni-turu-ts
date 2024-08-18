@@ -1,6 +1,5 @@
-import { type Request, type Response } from 'express';
 import { createProduct, getAllProducts, getProduct } from '../services/product.service';
-import { GetProductsController, type ProductResponse } from '../types';
+import { GetProductController, GetProductsController, PostProductController } from '../types';
 
 export const getProductsController: GetProductsController = async (req, res) => {
   try {
@@ -37,7 +36,7 @@ export const getProductsController: GetProductsController = async (req, res) => 
   }
 };
 
-export const getProductController = async (req: Request, res: Response<ProductResponse>): Promise<void> => {
+export const getProductController: GetProductController = async (req, res) => {
   try {
     const id = req.params.id;
     const product = await getProduct(id);
@@ -60,7 +59,7 @@ export const getProductController = async (req: Request, res: Response<ProductRe
   }
 };
 
-export const postProductController = async (req: Request, res: Response<ProductResponse>): Promise<void> => {
+export const postProductController: PostProductController = async (req, res) => {
   try {
     const product = await createProduct(req.body);
     res.status(200).send({

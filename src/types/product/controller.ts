@@ -1,12 +1,17 @@
 import { type Request, type Response } from 'express';
-import { type ProductResponse, type QueryParams } from './index';
+import { type GetProductsResponse, type GetProductsControllerQueryParams, GetProductResponse } from './index';
 
 export type GetProductsController = (
-  req: Request<{}, {}, {}, QueryParams>,
-  res: Response<ProductResponse>
+  req: Request<{}, {}, {}, GetProductsControllerQueryParams>,
+  res: Response<GetProductsResponse>
+) => Promise<void>;
+
+export type GetProductController = (
+  req: Request, 
+  res: Response<GetProductResponse>
 ) => Promise<void>;
 
 export type PostProductController = (
   req: Request, 
-  res: Response<ProductResponse>
+  res: Response<GetProductResponse>
 ) => Promise<void>;
