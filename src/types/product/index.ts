@@ -4,6 +4,20 @@ export type Product = Prisma.ProductGetPayload<{
   include: { category: true };
 }>;
 
+// export type Product = {
+//   id: string;
+//   name: string;
+//   price: number;
+//   description: string;
+//   image: string;
+//   category_id: string | null;
+//   category?: {
+//     id: string;
+//     name: string;
+//     description: string | null;
+//   } | null;
+// };
+
 export type ProductResult = {
   products: Product[];
   total: number;

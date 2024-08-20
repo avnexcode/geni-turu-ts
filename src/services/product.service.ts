@@ -34,13 +34,13 @@ export const createProduct: CreateProductService = async newProductData => {
 };
 
 export const editProduct: EditProductService = async (id, productData) => {
-  getProduct(id);
+  await getProduct(id);
   const product = await updateProduct(id, productData);
   return product;
 };
 
 export const deleteProduct: DeleteProductService = async id => {
-  getProduct(id);
+  await getProduct(id);
   const product = await destroyProduct(id);
   return product;
 };

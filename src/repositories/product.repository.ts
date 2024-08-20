@@ -47,7 +47,7 @@ export const insertProduct: InsertProductRepository = async newProductData => {
     data: {
       name: newProductData.name,
       price: newProductData.price,
-      categoryid: newProductData.categoryid,
+      category_id: newProductData.category_id,
       description: newProductData.description,
       image: newProductData.image,
     },
@@ -63,7 +63,7 @@ export const updateProduct: UpdateProductRepository = async (id, productData) =>
     data: {
       name: productData.name,
       price: productData.price,
-      categoryid: productData.categoryid,
+      category_id: productData.category_id,
       description: productData.description,
       image: productData.image,
     },

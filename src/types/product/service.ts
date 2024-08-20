@@ -16,7 +16,7 @@ export type CreateProductService = (
 
 export type EditProductService = (
   id: string,
-  productDara: Product
+  productData: Omit<Product, 'id' | 'category'>
 ) => Promise<Product>;
 
 export type DeleteProductService = (

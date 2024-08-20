@@ -9,12 +9,36 @@ const token = process.env.SECRET_TOKEN;
 
 describe('GET /api/v1/products', () => {
   const mockProducts = [
-    { id: '1', name: 'Product 1', price: 100, category: 'Category 1', description: 'Description 1', image: 'image1.jpg' },
-    { id: '2', name: 'Product 2', price: 200, category: 'Category 2', description: 'Description 2', image: 'image2.jpg' },
+    {
+      id: '1',
+      name: 'Product 1',
+      price: 100,
+      category_id: 'Category 1',
+      description: 'Description 1',
+      image: 'image1.jpg',
+      category: {
+        id: '2',
+        name: 'Minuman',
+        description: 'Description 2',
+      },
+    },
+    {
+      id: '2',
+      name: 'Product 2',
+      price: 200,
+      category_id: 'Category 2',
+      description: 'Description 2',
+      image: 'image2.jpg',
+      category: {
+        id: '2',
+        name: 'Minuman',
+        description: 'Description 2',
+      },
+    },
   ];
 
   beforeEach(() => {
-    jest.spyOn(prisma.products, 'findMany').mockResolvedValue(mockProducts);
+    jest.spyOn(prisma.product, 'findMany').mockResolvedValue(mockProducts);
   });
 
   it('responds with a JSON message', async () => {
@@ -34,9 +58,14 @@ describe('GET /api/v1/products', () => {
             id: product.id,
             name: product.name,
             price: product.price,
-            category: product.category,
+            category_id: product.category_id,
             description: product.description,
             image: product.image,
+            category: {
+              id: product.category.id,
+              name: product.category.name,
+              description: product.category.description,
+            },
           }),
         ),
       ),
