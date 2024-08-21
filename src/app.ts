@@ -21,6 +21,11 @@ app.use(middlewares.tokenHandler);
 app.get<{}, MessageResponse>('/', (req, res) => {
   res.json({
     message: 'Welcome to Prot Prot API. Aaaaah Kawai Crot!!!',
+    endpoints: {
+      emojis: '/api/v1/emojis',
+      products: '/api/v1/products',
+      categories: '/api/v1/categories',
+    },
   });
 });
 

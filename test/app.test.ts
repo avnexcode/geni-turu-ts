@@ -24,6 +24,11 @@ describe('GET /', () => {
       .expect('Content-Type', /json/)
       .expect(200, {
         message: 'Welcome to Prot Prot API. Aaaaah Kawai Crot!!!',
+        endpoints: {
+          emojis: '/api/v1/emojis',
+          products: '/api/v1/products',
+          categories: '/api/v1/categories',
+        },
       }, done);
   });
 });
