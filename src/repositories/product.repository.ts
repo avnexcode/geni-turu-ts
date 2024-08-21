@@ -1,10 +1,10 @@
 import prisma from '../db';
 import {
-  DestroyProductRepository,
-  FindProductRepository,
-  FindProductsRepository,
-  InsertProductRepository,
-  UpdateProductRepository,
+  type DestroyProductRepository,
+  type FindProductRepository,
+  type FindProductsRepository,
+  type InsertProductRepository,
+  type UpdateProductRepository,
 } from '../types';
 
 export const findProducts: FindProductsRepository = async (filters, page, limit) => {

@@ -1,10 +1,10 @@
-import { type Product, type ProductResult } from './index';
+import { type Product, type ProductList } from './index';
 
 export type GetAllProductsService = (
   filters: Record<string, string>,
   page: number,
   limit: number,
-) => Promise<ProductResult>;
+) => Promise<ProductList>;
 
 export type GetProductService = (
   id: string
@@ -16,7 +16,7 @@ export type CreateProductService = (
 
 export type EditProductService = (
   id: string,
-  productData: Omit<Product, 'id' | 'category'>
+  productData: Partial<Product>
 ) => Promise<Product>;
 
 export type DeleteProductService = (

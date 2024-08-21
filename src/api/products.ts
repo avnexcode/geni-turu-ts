@@ -8,23 +8,16 @@ import {
   putProductController,
 } from '../controllers/product.controller';
 import {
-  GetProductResponse,
-  GetProductsControllerQueryParams,
-  GetProductsResponse,
-  Product,
+  type GetProductResponse,
+  type GetProductsControllerQueryParams,
+  type GetProductsResponse,
+  type Product,
   type ParamsWithId,
 } from '../types';
 
 const router = express.Router();
 
 // params, res body, req body, query
-
-// router.get('/', getProductsController);
-// router.get('/:id', getProductController);
-// router.post('/', postProductController);
-// router.put('/:id', putProductController);
-// router.patch('/:id', patchProductController);
-// router.delete('/:id', deleteProductController);
 
 router.get<{}, GetProductsResponse, {}, GetProductsControllerQueryParams>(
   '/',
@@ -41,14 +34,14 @@ router.post<{}, GetProductResponse, Product, {}>(
   postProductController as RequestHandler<{}, GetProductResponse, Product, {}>,
 );
 
-router.put<ParamsWithId, GetProductResponse, Omit<Product, 'id' | 'category'>, {}>(
+router.put<ParamsWithId, GetProductResponse, Product, {}>(
   '/:id',
-  putProductController as RequestHandler<ParamsWithId, GetProductResponse, Omit<Product, 'id' | 'category'>, {}>,
+  putProductController as RequestHandler<ParamsWithId, GetProductResponse, Product, {}>,
 );
 
-router.patch<ParamsWithId, GetProductResponse, Omit<Product, 'id' | 'category'>, {}>(
+router.patch<ParamsWithId, GetProductResponse, Partial<Product>, {}>(
   '/:id',
-  patchProductController as RequestHandler<ParamsWithId, GetProductResponse, Omit<Product, 'id' | 'category'>, {}>,
+  patchProductController as RequestHandler<ParamsWithId, GetProductResponse, Partial<Product>, {}>,
 );
 
 router.delete<ParamsWithId, GetProductResponse, {}, {}>(

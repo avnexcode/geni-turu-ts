@@ -4,7 +4,7 @@ export type Category = Prisma.CategoryGetPayload<{
   include: { products: true }
 }>;
 
-export type CategoryResult = {
+export type CategoryList = {
   categories: Category[];
   total: number;
   page: number;
@@ -20,7 +20,7 @@ export type GetCategoryResponse = {
 export type GetCategoriesResponse = {
   status: string;
   message: string;
-  data?: CategoryResult;
+  data?: CategoryList;
 };
   
 export type GetCategoriesControllerQueryParams = {

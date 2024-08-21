@@ -1,11 +1,11 @@
 import { createProduct, deleteProduct, editProduct, getAllProducts, getProduct } from '../services/product.service';
 import {
-  DeleteProductController,
-  GetProductController,
-  GetProductsController,
-  PatchProductController,
-  PostProductController,
-  PutProductController,
+  type DeleteProductController,
+  type GetProductController,
+  type GetProductsController,
+  type PatchProductController,
+  type PostProductController,
+  type PutProductController,
 } from '../types';
 
 export const getProductsController: GetProductsController = async (req, res) => {
@@ -22,12 +22,12 @@ export const getProductsController: GetProductsController = async (req, res) => 
       return acc;
     }, {});
 
-    const data = await getAllProducts(filter, pageNumber, limitNumber);
+    const products = await getAllProducts(filter, pageNumber, limitNumber);
 
-    res.status(200).json({
-      status: 'Success',
-      message: 'Success retrieve all products',
-      data,
+    return res.status(200).json({
+      status: 'success',
+      message: 'Products retrieved successfully',
+      data: products,
     });
   } catch (error: unknown) {
     let errorMessage = 'An unknown error occurred';
@@ -36,7 +36,7 @@ export const getProductsController: GetProductsController = async (req, res) => 
       errorMessage = error.message;
     }
 
-    res.status(400).json({
+    return res.status(400).json({
       status: 'Error',
       message: errorMessage,
     });
@@ -47,9 +47,9 @@ export const getProductController: GetProductController = async (req, res) => {
   try {
     const { id } = req.params;
     const product = await getProduct(id);
-    res.status(200).json({
+    return res.status(200).json({
       status: 'success',
-      message: 'Successfully retrieved product details',
+      message: 'Product details retrieved successfully',
       data: product,
     });
   } catch (error) {
@@ -59,7 +59,7 @@ export const getProductController: GetProductController = async (req, res) => {
       errorMessage = error.message;
     }
 
-    res.status(400).json({
+    return res.status(400).json({
       status: 'Error',
       message: errorMessage,
     });
@@ -69,9 +69,9 @@ export const getProductController: GetProductController = async (req, res) => {
 export const postProductController: PostProductController = async (req, res) => {
   try {
     const product = await createProduct(req.body);
-    res.status(200).json({
+    return res.status(201).json({
       status: 'success',
-      message: 'Successfully retrieved product details',
+      message: 'Product created successfully',
       data: product,
     });
   } catch (error) {
@@ -81,7 +81,7 @@ export const postProductController: PostProductController = async (req, res) => 
       errorMessage = error.message;
     }
 
-    res.status(400).json({
+    return res.status(400).json({
       status: 'Error',
       message: errorMessage,
     });
@@ -90,10 +90,10 @@ export const postProductController: PostProductController = async (req, res) => 
 
 export const putProductController: PutProductController = async (req, res) => {
   try {
-    const { name, price, description, image } = req.body;
     const { id } = req.params;
-    if (!(name && price && description && image)) {
-      res.status(400).json({
+    const { name, price, description, image, category_id: categoryId } = req.body;
+    if (!(name && price && description && image) && categoryId === undefined) {
+      return res.status(400).json({
         status: 'error',
         message: 'Some fields are missing',
       });
@@ -101,16 +101,9 @@ export const putProductController: PutProductController = async (req, res) => {
 
     const product = await editProduct(id, req.body);
 
-    if (!product) {
-      return res.status(404).json({
-        status: 'error',
-        message: 'Product not found',
-      });
-    }
-
-    res.status(200).json({
+    return res.status(200).json({
       status: 'success',
-      message: 'Product has been successfully updated',
+      message: 'Product updated successfully',
       data: product,
     });
   } catch (error) {
@@ -120,7 +113,7 @@ export const putProductController: PutProductController = async (req, res) => {
       errorMessage = error.message;
     }
 
-    res.status(400).json({
+    return res.status(400).json({
       status: 'Error',
       message: errorMessage,
     });
@@ -132,16 +125,9 @@ export const patchProductController: PatchProductController = async (req, res) =
     const { id } = req.params;
     const product = await editProduct(id, req.body);
 
-    if (!product) {
-      return res.status(404).json({
-        status: 'error',
-        message: 'Product not found',
-      });
-    }
-
-    res.status(200).json({
+    return res.status(200).json({
       status: 'success',
-      message: 'Product has been successfully updated',
+      message: 'Product updated successfully',
       data: product,
     });
   } catch (error) {
@@ -151,7 +137,7 @@ export const patchProductController: PatchProductController = async (req, res) =
       errorMessage = error.message;
     }
 
-    res.status(400).json({
+    return res.status(400).json({
       status: 'Error',
       message: errorMessage,
     });
@@ -162,9 +148,9 @@ export const deleteProductController: DeleteProductController = async (req, res)
   try {
     const id = req.params.id;
     const product = await deleteProduct(id);
-    res.status(200).json({
+    return res.status(200).json({
       status: 'success',
-      message: 'Product has been successfully deleted',
+      message: 'Product deleted successfully',
       data: product,
     });
   } catch (error) {
@@ -174,7 +160,7 @@ export const deleteProductController: DeleteProductController = async (req, res)
       errorMessage = error.message;
     }
 
-    res.status(400).json({
+    return res.status(400).json({
       status: 'Error',
       message: errorMessage,
     });

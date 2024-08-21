@@ -1,15 +1,15 @@
-import { CategoryResult } from '../index';
+import { type Category, type CategoryList } from '../index';
 
 export type FindCategoriesRepository = (
   filters: Record<string, string>,
   page: number,
   limit: number
-) => Promise<CategoryResult>;
+) => Promise<CategoryList>;
 
-export type FindCategoryRepository = () => {};
+export type FindCategoryRepository = (id: string) => Promise<Category | null>;
 
-export type InsertCategoryRepository = () => {};
+export type InsertCategoryRepository = (newCategoryData: Category) => Promise<Category>;
 
-export type UpdateCategoryRepository = () => {};
+export type UpdateCategoryRepository = (id: string, categoryData: Category) => Promise<Category>;
 
-export type DestroyCategoryRepository = () => {};
+export type DestroyCategoryRepository = (id: string) => Promise<Category>;

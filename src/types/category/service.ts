@@ -1,12 +1,12 @@
-import { Category, CategoryResult } from './index';
+import { Category, CategoryList } from './index';
 
 export type GetAllCategoriesService = (
   filters: Record<string, string>,
   page: number,
-  limit: number,
-) => Promise<CategoryResult>;
+  limit: number
+) => Promise<CategoryList>;
 
-export type GetCategoryService = () => Promise<Category>;
-export type CreateCategoryService = () => Promise<Category>;
-export type EditCategoryService = () => Promise<Category>;
-export type DeleteCategoryService = () => Promise<Category>;
+export type GetCategoryService = (id: string) => Promise<Category>;
+export type CreateCategoryService = (newCategoryData: Category) => Promise<Category>;
+export type EditCategoryService = (id: string, categoryData: Category) => Promise<Category>;
+export type DeleteCategoryService = (id: string) => Promise<Category>;

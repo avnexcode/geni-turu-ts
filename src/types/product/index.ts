@@ -4,21 +4,7 @@ export type Product = Prisma.ProductGetPayload<{
   include: { category: true };
 }>;
 
-// export type Product = {
-//   id: string;
-//   name: string;
-//   price: number;
-//   description: string;
-//   image: string;
-//   category_id: string | null;
-//   category?: {
-//     id: string;
-//     name: string;
-//     description: string | null;
-//   } | null;
-// };
-
-export type ProductResult = {
+export type ProductList = {
   products: Product[];
   total: number;
   page: number;
@@ -34,7 +20,7 @@ export type GetProductResponse = {
 export type GetProductsResponse = {
   status: string;
   message: string;
-  data?: ProductResult;
+  data?: ProductList;
 };
 
 export type GetProductsControllerQueryParams = {
